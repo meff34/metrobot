@@ -5,17 +5,23 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "develop": "nodemon index",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "Ivan Gorbunov, meff34@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
+    "moment": "^2.18.1",
     "telebot": "^1.2.0"
   },
   "devDependencies": {
+    "chai": "^4.1.0",
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0"
   }
 }

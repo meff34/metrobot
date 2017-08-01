@@ -1,6 +1,11 @@
 {
     "extends": "airbnb-base",
+    "plugins": [
+        "mocha"
+    ],
     "rules": {
-        "linebreak-style": "off"
+        "class-methods-use-this": "off",
+        "linebreak-style": "off",
+        "no-use-before-define": ["error", { "functions": false, "classes": true }]
     }
 }
