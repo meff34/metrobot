@@ -57,3 +57,12 @@ typings/
 # dotenv environment variables file
 .env
 
+# ide and text editors
+.vscode
+.idea
+
+# configuration
+config/
+
+# logs
+/tmp
