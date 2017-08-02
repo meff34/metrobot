@@ -1,6 +1,6 @@
 const https = require('https');
 
-class Request {
+class RequestPromised {
   constructor(protocol) {
     this.protocol = protocol;
   }
@@ -52,4 +52,4 @@ class Request {
   }
 }
 
-module.exports = new Request(https);
+module.exports = { httpsPromised: new RequestPromised(https), RequestPromised };

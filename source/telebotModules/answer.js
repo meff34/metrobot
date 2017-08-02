@@ -16,9 +16,7 @@ function answerToMessage(bot) {
       return;
     }
 
-    answer(msg, {
-      asReply: true,
-    });
+    answer(msg, { asReply: true });
   });
 }
 
@@ -28,8 +26,8 @@ function answer(message, opts = { asReply: false }) {
       const response = formatResponse(metroData);
       message.reply.text(response, opts);
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(() => {
+      // TODO: писать ошибки в логи
       message.reply.text('Что-то я тебя не пойму.', opts);
     });
 }
