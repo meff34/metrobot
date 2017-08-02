@@ -34,7 +34,7 @@ module.exports = new Config();
 ```
 then run
 ```bash
-$ npm develop
+$ npm run develop
 ```
 
 ### Tests
