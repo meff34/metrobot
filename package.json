@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index",
     "develop": "nodemon index",
-    "test": "mocha"
+    "test": "mocha -w"
   },
   "keywords": [],
   "author": "Ivan Gorbunov, meff34@gmail.com",

@@ -26,8 +26,8 @@ function answer(message, opts = { asReply: false }) {
       const response = formatResponse(metroData);
       message.reply.text(response, opts);
     })
-    .catch(() => {
-      // TODO: писать ошибки в логи
+    .catch((error) => {
+      console.error(error);
       message.reply.text('Что-то я тебя не пойму.', opts);
     });
 }
