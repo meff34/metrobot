@@ -12,6 +12,7 @@
   "author": "Ivan Gorbunov, meff34@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "jsonfile": "^3.0.1",
     "moment": "^2.18.1",
     "telebot": "^1.2.0"
   },

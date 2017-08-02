@@ -1,7 +1,7 @@
 const getMetroData = require('../doubleGisModules/getMetroData');
 const formatResponse = require('../utils/responseFormatter');
+const errorLogger = require('../utils/errorLogger');
 
-// TODO: писать ошибки в логи
 function answerToMessage(bot) {
   bot.on('text', (msg) => {
     if (msg.text.indexOf('/') !== -1) {
@@ -28,6 +28,7 @@ function answer(message, opts = { asReply: false }) {
     })
     .catch((error) => {
       console.error(error);
+      errorLogger(error);
       message.reply.text('Что-то я тебя не пойму.', opts);
     });
 }
