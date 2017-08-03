@@ -2,7 +2,7 @@
 telegram bot on node.js
 
 ### Bot location
-[here](https://t.me/just_another_one_telegram_bot)
+[here](https://t.me/RunForrestBot)
 
 ### Development
 ```bash
