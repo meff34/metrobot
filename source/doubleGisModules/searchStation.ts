@@ -1,20 +1,18 @@
-const httpsPromised = require('../utils/request').httpsPromised;
-const config = require('../../config/config');
+import * as requestPromise from 'request-promise';
+import config from '../../config/config';
 
-function searchStation(queryString) {
+export default function searchStation(queryString: string) {
   const augmentedQueryString = `СПБ ${queryString} метро`;
   const queryUrl = config.getDoubleGisSearchUrl(augmentedQueryString);
 
-  return httpsPromised.get(queryUrl)
+  return requestPromise(queryUrl)
     .then(handleAPIError)
     .then(data => Promise.resolve(data.result[0].id));
 }
 
-function handleAPIError(data) {
+function handleAPIError(data: any) {
   if (data.response_code !== '200') {
     return Promise.reject(new Error(`${data.response_code} API error: ${data.error_message}`));
   }
   return Promise.resolve(data);
 }
-
-module.exports = searchStation;

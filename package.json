@@ -4,27 +4,36 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "develop": "nodemon index",
-    "test": "mocha -w"
+    "start": "node build/index",
+    "develop": "nodemon build/index",
+    "test": "mocha -w",
+    "compile": "tsc -w"
   },
   "keywords": [],
   "author": "Ivan Gorbunov, meff34@gmail.com",
   "license": "MIT",
   "dependencies": {
     "bunyan": "^1.8.12",
-    "i18n": "^0.8.3",
     "jsonfile": "^3.0.1",
     "moment": "^2.18.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "telebot": "^1.2.0"
   },
   "devDependencies": {
+    "@types/bunyan": "^1.8.0",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^8.0.19",
+    "@types/request-promise": "^4.1.36",
+    "@types/telebot": "^1.2.0",
     "chai": "^4.1.0",
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.3.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-mocha": "^4.11.0",
     "mocha": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "tslint-config-airbnb": "^5.2.1",
+    "typescript": "^2.4.2"
   }
 }

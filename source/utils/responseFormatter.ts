@@ -1,9 +1,9 @@
-const moment = require('moment');
+import * as moment from 'moment';
 
-const week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-function responseFormatter(metroData) {
+export default function responseFormatter(metroData: any): string {
+  const week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   // TODO: определение дня после полуночи
+  // TODO: одинаковое время каждый день?
   try {
     const schedule = metroData.result.items[0].schedule;
     const stationName = metroData.result.items[0].name;
@@ -18,5 +18,3 @@ function responseFormatter(metroData) {
     throw new Error(error.message);
   }
 }
-
-module.exports = responseFormatter;

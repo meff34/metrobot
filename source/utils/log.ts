@@ -1,7 +1,9 @@
-const bunyan = require('bunyan');
-const moment = require('moment');
+import * as bunyan from 'bunyan';
+import * as moment from 'moment';
 
 class Logger {
+  private logEngine: bunyan;
+
   constructor() {
     this.logEngine = bunyan.createLogger({
       name: 'metrobot',
@@ -12,15 +14,17 @@ class Logger {
     });
   }
 
-  error(telegramMessage, errorInstance) {
+  public error(telegramMessage: any, errorInstance: any) {
     const logMessage = {
-      userInput: telegramMessage.text,
-      from: telegramMessage.from.username,
       errorMessage: errorInstance.toString(),
+      from: telegramMessage.from.username,
       time: moment().format('DD.MM.YYYY, HH:mm:ss'),
+      userInput: telegramMessage.text,
     };
     this.logEngine.error(logMessage);
   }
 }
 
-module.exports = new Logger();
+const log = new Logger();
+
+export default log;
