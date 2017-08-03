@@ -1,6 +1,6 @@
 const getMetroData = require('../doubleGisModules/getMetroData');
 const formatResponse = require('../utils/responseFormatter');
-const errorLogger = require('../utils/errorLogger');
+const log = require('../utils/log');
 const { errorMessage } = require('../locales/ru');
 
 function answerToMessage(bot) {
@@ -28,7 +28,7 @@ function answer(message, opts = { asReply: false }) {
       message.reply.text(response, opts);
     })
     .catch((error) => {
-      errorLogger(error);
+      log.error(message, error);
       message.reply.text(errorMessage, opts);
     });
 }
