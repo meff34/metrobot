@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const requestPromise = require("request-promise");
-const config_1 = require("../../config/config");
+const config_1 = require("../config/config");
+const ru_1 = require("../locales/ru");
+const httpsPromised_1 = require("../utils/httpsPromised");
+const log_1 = require("../utils/log");
 function searchStation(queryString) {
-    const augmentedQueryString = `СПБ ${queryString} метро`;
+    const augmentedQueryString = ru_1.default.augmentedQueryString(queryString);
     const queryUrl = config_1.default.getDoubleGisSearchUrl(augmentedQueryString);
-    return requestPromise(queryUrl)
+    log_1.default.info('#queryString', queryUrl);
+    return httpsPromised_1.default.get(queryUrl)
         .then(handleAPIError)
         .then(data => Promise.resolve(data.result[0].id));
 }

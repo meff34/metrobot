@@ -5,7 +5,8 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": false,
-    "outDir": "build"
+    "outDir": "build",
+    "rootDir": "."
   },
   "exclude": [
     "node_modules"

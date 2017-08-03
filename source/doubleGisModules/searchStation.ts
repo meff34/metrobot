@@ -1,11 +1,14 @@
-import * as requestPromise from 'request-promise';
-import config from '../../config/config';
+import config from '../config/config';
+import ru from '../locales/ru';
+import httpsPromised from '../utils/httpsPromised';
+import log from '../utils/log';
 
 export default function searchStation(queryString: string) {
-  const augmentedQueryString = `СПБ ${queryString} метро`;
+  const augmentedQueryString = ru.augmentedQueryString(queryString);
   const queryUrl = config.getDoubleGisSearchUrl(augmentedQueryString);
 
-  return requestPromise(queryUrl)
+  log.info('#queryString', queryUrl);
+  return httpsPromised.get(queryUrl)
     .then(handleAPIError)
     .then(data => Promise.resolve(data.result[0].id));
 }

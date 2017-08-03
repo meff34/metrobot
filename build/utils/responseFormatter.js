@@ -6,6 +6,9 @@ function responseFormatter(metroData) {
     // TODO: определение дня после полуночи
     // TODO: одинаковое время каждый день?
     try {
+        if (metroData.result.items[0].subtype !== 'metro') {
+            throw new Error(`search error: 'metro' isn't equal '${metroData.result.items[0].subtype}'`);
+        }
         const schedule = metroData.result.items[0].schedule;
         const stationName = metroData.result.items[0].name;
         const todayInWeekAsArrayIndex = moment().day() - 1;
@@ -15,7 +18,7 @@ function responseFormatter(metroData) {
         return `Станция метро '${stationName}' работает\nс ${start} до ${end} 🚇`;
     }
     catch (error) {
-        throw new Error(error.message);
+        throw error;
     }
 }
 exports.default = responseFormatter;

@@ -5,6 +5,9 @@ export default function responseFormatter(metroData: any): string {
   // TODO: определение дня после полуночи
   // TODO: одинаковое время каждый день?
   try {
+    if (metroData.result.items[0].subtype !== 'metro') {
+      throw new Error(`search error: 'metro' isn't equal '${metroData.result.items[0].subtype}'`);
+    }
     const schedule = metroData.result.items[0].schedule;
     const stationName = metroData.result.items[0].name;
 
@@ -15,6 +18,6 @@ export default function responseFormatter(metroData: any): string {
     const end = scheduleToday.working_hours[0].to;
     return `Станция метро '${stationName}' работает\nс ${start} до ${end} 🚇`;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 }

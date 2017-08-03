@@ -1,14 +1,17 @@
-import * as requestPromise from 'request-promise';
-import config from '../../config/config';
+import config from '../config/config';
+import httpsPromised from '../utils/httpsPromised';
+import log from '../utils/log';
 import searchStation from './searchStation';
 
-const getMetroData = (stationName: string) =>
-  searchStation(stationName)
-    .then((metroId: number) => {
+function getMetroData(stationName: string) {
+  return searchStation(stationName)
+    .then((metroId: string) => {
       const queryUrl = config.getDoubleGisGetDataUrl(metroId);
-      return requestPromise(queryUrl);
+      log.info('#getQueryURL', queryUrl);
+      return httpsPromised.get(queryUrl);
     })
     .then(handleApiError);
+}
 
 function handleApiError(data: any) {
   if (data.meta.code !== 200) {
