@@ -1,13 +1,9 @@
-const https = require('https');
+import * as https from 'https';
 
-class RequestPromised {
-  constructor(protocol) {
-    this.protocol = protocol;
-  }
-
-  get(queryUrl) {
+class HttpsPromised {
+  public get(queryUrl: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.protocol.get(queryUrl, (res) => {
+      https.get(queryUrl, (res: https.IncomingMessage) => {
         const error = this.handleHttpError(res);
 
         if (error) {
@@ -18,15 +14,15 @@ class RequestPromised {
         }
 
         this.handleServerResponse(res, resolve, reject);
-      }).on('error', (e) => {
+      }).on('error', (e: Error) => {
         reject(new Error(`Http connection error: ${e.message}`));
       });
     });
   }
 
-  handleHttpError(response) {
+  private handleHttpError(response: https.IncomingMessage) {
     const { statusCode } = response;
-    const contentType = response.headers['content-type'];
+    const contentType = response.headers['content-type'] as string;
     let error;
     if (statusCode !== 200) {
       error = new Error(`Request Failed. \nStatus Code: ${statusCode}`);
@@ -36,7 +32,7 @@ class RequestPromised {
     return error;
   }
 
-  handleServerResponse(response, resolve, reject) {
+  private handleServerResponse(response: https.IncomingMessage, resolve: (value: any) => void, reject: (value: any) => void) {
     response.setEncoding('utf8');
     let rawData = '';
     response
@@ -52,4 +48,6 @@ class RequestPromised {
   }
 }
 
-module.exports = { httpsPromised: new RequestPromised(https), RequestPromised };
+const httpsPromised = new HttpsPromised();
+
+export default httpsPromised;

@@ -1,4 +1,6 @@
 {
-  "verbose": true,
-  "ignore": ["test/*", "log/*"]
+  "verbose": false,
+  "script": "build/index.js",
+  "ignore": ["source/*"],
+  "watch": ["build/**/*.js"]
 }
