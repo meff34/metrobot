@@ -24,7 +24,7 @@ class GeoAPI {
       .then(this.transformResponseToSchedule);
   }
 
-  public getStationSchedule(stationId: number): Promise<ISchedule> {
+  public getStationSchedule(stationId: number): Promise<any> {
     const queryUrl = geoAPI.getDoubleGisGetScheduleUrl(stationId);
     return httpsPromised.get(queryUrl)
       .then(this.handleNewAPIError);
@@ -36,7 +36,7 @@ class GeoAPI {
 
     return httpsPromised.get(queryUrl)
       .then(this.handleOldAPIError)
-      .then(data => Promise.resolve(data.result[0].id));
+      .then(data => Promise.resolve(parseInt(data.result[0].id, 10)));
   }
 
   private handleNewAPIError(data: any) {

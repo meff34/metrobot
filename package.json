@@ -6,13 +6,12 @@
   "scripts": {
     "start": "node build/index.js",
     "develop": "gulp",
-    "test": "mocha -w"
+    "test": "mocha -r ts-node/register test/*.test.ts"
   },
   "keywords": [],
   "author": "Ivan Gorbunov, meff34@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@types/chalk": "^0.4.31",
     "bunyan": "^1.8.12",
     "chalk": "^2.0.1",
     "jsonfile": "^3.0.1",
@@ -23,6 +22,9 @@
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.0",
+    "@types/chai": "^4.0.2",
+    "@types/chalk": "^0.4.31",
+    "@types/mocha": "^2.2.41",
     "@types/moment": "^2.13.0",
     "@types/node": "^8.0.19",
     "@types/request-promise": "^4.1.36",
@@ -37,6 +39,7 @@
     "gulp-typescript": "^3.2.1",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
+    "ts-node": "^3.3.0",
     "tslint-config-airbnb": "^5.2.1",
     "typescript": "^2.4.2"
   }
