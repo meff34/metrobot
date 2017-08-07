@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const getMetroData_1 = require("../doubleGisModules/getMetroData");
+const searchStation_1 = require("../doubleGisModules/searchStation");
 const ru_1 = require("../locales/ru");
 const log_1 = require("../utils/log");
 const responseFormatter_1 = require("../utils/responseFormatter");
@@ -20,13 +21,14 @@ function answerToMessage(bot) {
 }
 exports.default = answerToMessage;
 function answer(message, opts = { asReply: false }) {
-    getMetroData_1.default(message.text)
+    searchStation_1.default(message.text)
+        .then(metroId => getMetroData_1.default(metroId))
         .then((metroData) => {
         const response = responseFormatter_1.default(metroData);
         message.reply.text(response, opts);
     })
         .catch((error) => {
-        log_1.default.error(message, error);
+        log_1.default.botError(message, error);
         message.reply.text(ru_1.default.errorMessage, opts);
     });
 }

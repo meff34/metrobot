@@ -6,9 +6,7 @@
   "scripts": {
     "start": "node build/index.js",
     "develop": "gulp",
-    "test": "mocha -w",
-    "typescript": "tsc",
-    "typescript:watch": "tsc -w"
+    "test": "mocha -w"
   },
   "keywords": [],
   "author": "Ivan Gorbunov, meff34@gmail.com",

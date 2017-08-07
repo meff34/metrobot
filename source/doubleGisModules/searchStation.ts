@@ -1,13 +1,12 @@
-import config from '../config/config';
+import geoAPI from '../geoAPI/geoAPI';
 import ru from '../locales/ru';
 import httpsPromised from '../utils/httpsPromised';
 import log from '../utils/log';
 
-export default function searchStation(queryString: string) {
+export default function searchStation(queryString: string): Promise<string> {
   const augmentedQueryString = ru.augmentedQueryString(queryString);
-  const queryUrl = config.getDoubleGisSearchUrl(augmentedQueryString);
+  const queryUrl = geoAPI.getDoubleGisSearchUrl(augmentedQueryString);
 
-  log.info('#queryString', queryUrl);
   return httpsPromised.get(queryUrl)
     .then(handleAPIError)
     .then(data => Promise.resolve(data.result[0].id));

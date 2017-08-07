@@ -1,27 +1,38 @@
 import * as bunyan from 'bunyan';
-import * as moment from 'moment';
 import * as chalk from 'chalk';
+import * as moment from 'moment';
 
 class Logger {
-  private logEngine: bunyan;
+  private telegramLogger: bunyan;
+  private runtimeLogger: bunyan;
 
   constructor() {
-    this.logEngine = bunyan.createLogger({
+    this.telegramLogger = bunyan.createLogger({
       name: 'metrobot',
       streams: [
         { level: 'error', path: 'log/errors.log' },
       ],
     });
+    this.runtimeLogger = bunyan.createLogger({
+      name: 'metrobot',
+      streams: [
+        { level: 'error', path: 'log/runtimeErrors.log' },
+      ],
+    });
   }
 
-  public error(telegramMessage: any, errorInstance: any) {
+  public botError(telegramMessage: any, errorInstance: Error) {
     const logMessage = {
       errorMessage: errorInstance.toString(),
       from: telegramMessage.from.username,
       time: moment().format('DD.MM.YYYY, HH:mm:ss'),
       userInput: telegramMessage.text,
     };
-    this.logEngine.error(logMessage);
+    this.telegramLogger.error(logMessage);
+  }
+
+  public runtimeError(error: Error) {
+    this.runtimeLogger.error(error);
   }
 
   public info(definition: string, ...message: any[]) {

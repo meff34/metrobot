@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = require("../config/config");
+const geoAPI_1 = require("../geoAPI/geoAPI");
 const ru_1 = require("../locales/ru");
 const httpsPromised_1 = require("../utils/httpsPromised");
-const log_1 = require("../utils/log");
 function searchStation(queryString) {
     const augmentedQueryString = ru_1.default.augmentedQueryString(queryString);
-    const queryUrl = config_1.default.getDoubleGisSearchUrl(augmentedQueryString);
-    log_1.default.info('#queryString', queryUrl);
+    const queryUrl = geoAPI_1.default.getDoubleGisSearchUrl(augmentedQueryString);
     return httpsPromised_1.default.get(queryUrl)
         .then(handleAPIError)
         .then(data => Promise.resolve(data.result[0].id));

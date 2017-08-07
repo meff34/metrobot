@@ -1,15 +1,11 @@
-import config from '../config/config';
+import geoAPI from '../geoAPI/geoAPI';
 import httpsPromised from '../utils/httpsPromised';
 import log from '../utils/log';
 import searchStation from './searchStation';
 
-function getMetroData(stationName: string) {
-  return searchStation(stationName)
-    .then((metroId: string) => {
-      const queryUrl = config.getDoubleGisGetDataUrl(metroId);
-      log.info('#getQueryURL', queryUrl);
-      return httpsPromised.get(queryUrl);
-    })
+function getMetroData(metroId: string) {
+  const queryUrl = geoAPI.getDoubleGisGetDataUrl(metroId);
+  return httpsPromised.get(queryUrl)
     .then(handleApiError);
 }
 

@@ -6,7 +6,7 @@ const tsProject = tsc.createProject('tsconfig.json');
 
 gulp.task('default', ['watch', 'nodemon']);
 
-gulp.task('watch', () => {
+gulp.task('watch', ['typescript'], () => {
     gulp.watch('source/**/*.*', ['typescript']);
 });
 
@@ -23,13 +23,9 @@ gulp.task('nodemon', function () {
     ext: 'js json',
     env: { 'NODE_ENV': 'development' },
   });
-  
-  stream
-    .on('restart', function () {
-        console.log('restarted!')
-    })
-    .on('crash', function() {
-        console.error('Application has crashed!\n')
-        stream.emit('restart', 10)
-    })
+
+  stream.on('crash', function() {
+      console.error('Application has crashed!\n')
+      stream.emit('restart', 10)
+  })
 });
