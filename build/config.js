@@ -4,18 +4,15 @@ const fs = require("fs");
 const path = require("path");
 const log_1 = require("./utils/log");
 class ConfigLoader {
-    constructor(path) {
+    constructor(pathToFile) {
         try {
-            const data = fs.readFileSync(path, 'utf-8');
+            const data = fs.readFileSync(pathToFile, 'utf-8');
             this.config = JSON.parse(data);
         }
         catch (err) {
-            this.handleReadFileError(err);
+            log_1.default.runtimeError(new Error(err));
         }
     }
-    handleReadFileError(error) {
-        log_1.default.runtimeError(error);
-    }
 }
-const config = (new ConfigLoader(path.resolve(__dirname, '../config.json'))).config;
+const config = (new ConfigLoader(path.join(__dirname, '../config.json'))).config;
 exports.default = config;

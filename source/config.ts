@@ -8,20 +8,16 @@ class ConfigLoader {
     teleToken: string;
   };
 
-  constructor(path: string) {
+  constructor(pathToFile: string) {
     try {
-      const data = fs.readFileSync(path, 'utf-8');
+      const data = fs.readFileSync(pathToFile, 'utf-8');
       this.config = JSON.parse(data);
     } catch (err) {
-      this.handleReadFileError(err);
+      log.runtimeError(new Error(err));
     }
-  }
-
-  private handleReadFileError(error: NodeJS.ErrnoException) {
-    log.runtimeError(error);
   }
 }
 
-const config = (new ConfigLoader(path.resolve(__dirname, '../config.json'))).config;
+const config = (new ConfigLoader(path.join(__dirname, '../config.json'))).config;
 
 export default config;

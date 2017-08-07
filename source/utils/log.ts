@@ -9,15 +9,11 @@ class Logger {
   constructor() {
     this.telegramLogger = bunyan.createLogger({
       name: 'metrobot',
-      streams: [
-        { level: 'error', path: 'log/errors.log' },
-      ],
+      streams: [{ level: 'error', path: 'log/errors.log' }],
     });
     this.runtimeLogger = bunyan.createLogger({
-      name: 'metrobot',
-      streams: [
-        { level: 'error', path: 'log/runtimeErrors.log' },
-      ],
+      name: 'metrobot runtime',
+      streams: [{ level: 'error', path: 'log/runtimeErrors.log' }],
     });
   }
 
@@ -32,13 +28,19 @@ class Logger {
   }
 
   public runtimeError(error: Error) {
+    this.stdOutError('#runtimeError', error);
     this.runtimeLogger.error(error);
   }
 
-  public info(definition: string, ...message: any[]) {
+  public stdOut(definition: string, ...message: any[]) {
     // tslint:disable:no-console
-    console.info('\n');
-    console.info(chalk.underline.bold(definition), ...message);
+    console.info(chalk.green(definition), ...message);
+    // tslint:enable:no-console
+  }
+
+  public stdOutError(definition: string, ...message: any[]) {
+    // tslint:disable:no-console
+    console.info(chalk.red(definition), ...message);
     // tslint:enable:no-console
   }
 }
