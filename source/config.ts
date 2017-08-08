@@ -6,6 +6,7 @@ class ConfigLoader {
   public config: {
     doubleGisToken: string;
     teleToken: string;
+    hostname: string;
   };
 
   constructor(pathToFile: string) {

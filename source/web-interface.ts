@@ -1,14 +1,16 @@
 import * as fs from 'fs';
 import * as http from 'http';
 import * as path from 'path';
+import config from './config';
 import log from './utils/log';
 
 class Server {
   private server: http.Server;
+  private hostname: string;
   private port = 80;
-  private hostname = 'localhost';
 
-  constructor() {
+  constructor(hostname: string = 'localhost') {
+    this.hostname = hostname;
     this.server = http.createServer((req, res) => this.handleRequest(req, res));
   }
 
@@ -45,5 +47,5 @@ class Server {
   }
 }
 
-const server = new Server();
+const server = new Server(config.hostname);
 export default server;
