@@ -7,6 +7,7 @@ class ConfigLoader {
     doubleGisToken: string;
     teleToken: string;
     hostname: string;
+    spyUserIds: number[];
   };
 
   constructor(pathToFile: string) {
