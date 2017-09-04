@@ -27,7 +27,7 @@ class GeoAPI {
   public getStationSchedule(stationId: number): Promise<any> {
     const queryUrl = geoAPI.getDoubleGisGetScheduleUrl(stationId);
     return httpsPromised.get(queryUrl)
-      .then(this.handleNewAPIError);
+      .then(this.handleAPIError);
   }
 
   public getStationId(queryString: string): Promise<number> {
@@ -35,20 +35,18 @@ class GeoAPI {
     const queryUrl = geoAPI.getDoubleGisSearchUrl(augmentedQueryString);
 
     return httpsPromised.get(queryUrl)
-      .then(this.handleOldAPIError)
-      .then(data => Promise.resolve(parseInt(data.result[0].id, 10)));
+      .then(this.handleAPIError)
+      .then(data => Promise.resolve(this.findStationId(data)));
   }
 
-  private handleNewAPIError(data: any) {
+  private findStationId(data: any): number {
+    const item = data.result.items.find((elem: any) => elem.hint.hint_type === 'station.metro');
+    return parseInt(item.id, 10);
+  }
+
+  private handleAPIError(data: any) {
     if (data.meta.code !== 200) {
-      return Promise.reject(new Error(`#getStationSchedule() ${data.meta.code} API error: ${data.meta.error.message}`));
-    }
-    return Promise.resolve(data);
-  }
-
-  private handleOldAPIError(data: any) {
-    if (data.response_code !== '200') {
-      return Promise.reject(new Error(`#getStationId() ${data.response_code} API error: ${data.error_message}`));
+      return Promise.reject(new Error(`${data.meta.code} API error: ${data.meta.error.message}`));
     }
     return Promise.resolve(data);
   }
@@ -61,7 +59,7 @@ class GeoAPI {
   }
 
   private getDoubleGisSearchUrl(query: string): string {
-    return `https://catalog.api.2gis.ru/geo/search?q=${encodeURIComponent(query)}&version=1.3&key=${this.token}`;
+    return `https://catalog.api.2gis.ru/2.0/suggest/list?key=${this.token}&region_id=38&lang=ru&q=${encodeURIComponent(query)}`;
   }
 
   private getDoubleGisGetScheduleUrl(stationId: number): string {
