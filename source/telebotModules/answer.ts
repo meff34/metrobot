@@ -10,7 +10,6 @@ export default function answerToMessage() {
   bot.on('edit', msg => answer(msg, { asReply: true }));
 }
 
-
 function answer(message: any, opts = { asReply: false }) {
   if (message.text.indexOf('/') !== -1) {
     return;

@@ -1,7 +1,7 @@
-import * as Telebot from 'telebot';
+import bot from './bot'
 import dictionary from '../locales/dictionary';
 
-export default function commands(bot: Telebot) {
+export default function commands() {
   bot.on('/start', (msg) => {
     msg.reply.text(dictionary.greeting);
   });

@@ -3,8 +3,8 @@ import bot from './telebotModules/bot';
 import commands from './telebotModules/commands';
 import server from './web-interface';
 
-answerToMessage(bot);
-commands(bot);
+answerToMessage();
+commands();
 
 bot.start();
 
