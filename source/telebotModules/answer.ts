@@ -16,7 +16,8 @@ export default function answerToMessage(bot: Telebot) {
 }
 
 function spy(msg: any, bot: Telebot) {
-  const data = `#spy\n----------\n@${msg.from.username}: ${msg.text}\n----------`;
+  const { from } = msg;
+  const data = `#spy\n----------\nfirstname: ${from.first_name}\nlastname: ${from.last_name}\nusername: @${from.username}\n\nmsg: ${msg.text}\n----------`;
   config.spyUserIds.forEach((spyId) => {
     bot.sendMessage(spyId, data);
   });

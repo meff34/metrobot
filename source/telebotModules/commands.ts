@@ -9,8 +9,4 @@ export default function commands(bot: Telebot) {
   bot.on('/help', (msg) => {
     msg.reply.text(dictionary.help);
   });
-
-  bot.on('/location', msg => {
-
-  })
 }

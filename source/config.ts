@@ -2,13 +2,16 @@ import * as fs from 'fs';
 import * as path from 'path';
 import log from './utils/log';
 
+export interface Config {
+  doubleGisToken: string;
+  teleToken: string;
+  hostname: string;
+  port: number;
+  spyUserIds: number[];
+}
+
 class ConfigLoader {
-  public config: {
-    doubleGisToken: string;
-    teleToken: string;
-    hostname: string;
-    spyUserIds: number[];
-  };
+  public config: Config;
 
   constructor(pathToFile: string) {
     try {
