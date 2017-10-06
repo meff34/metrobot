@@ -1,6 +1,7 @@
 import * as bunyan from 'bunyan';
 import * as chalk from 'chalk';
 import * as moment from 'moment';
+import { spyLog } from '../telebotModules/spy'
 
 class Logger {
   private telegramLogger: bunyan;
@@ -18,13 +19,10 @@ class Logger {
   }
 
   public botError(telegramMessage: any, errorInstance: Error) {
-    const logMessage = {
-      errorMessage: errorInstance.toString(),
-      from: telegramMessage.from.username,
-      time: moment().format('DD.MM.YYYY, HH:mm:ss'),
-      userInput: telegramMessage.text,
-    };
+    const logMessage = this.getLogMessage(telegramMessage, errorInstance);
     this.telegramLogger.error(logMessage);
+
+    spyLog(`api error: ${JSON.stringify(logMessage, null, 2)}`);
   }
 
   public runtimeError(error: Error) {
@@ -42,6 +40,15 @@ class Logger {
     // tslint:disable:no-console
     console.info(chalk.red(definition), ...message);
     // tslint:enable:no-console
+  }
+
+  private getLogMessage(telegramMessage: any, errorInstance: Error) {
+    return ({
+      errorMessage: errorInstance.toString(),
+      from: telegramMessage.from.username,
+      time: moment().format('DD.MM.YYYY, HH:mm:ss'),
+      userInput: telegramMessage.text,
+    });
   }
 }
 
