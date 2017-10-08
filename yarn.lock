@@ -51,6 +51,10 @@
   version "8.0.19"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.19.tgz#e46e2b0243de7d03f15b26b45c59ebb84f657a4e"
 
+"@types/ramda@^0.24.16":
+  version "0.24.16"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.24.16.tgz#e3849362ed1ab89923c10e8755db84135275a1ac"
+
 "@types/request-promise@^4.1.36":
   version "4.1.36"
   resolved "https://registry.yarnpkg.com/@types/request-promise/-/request-promise-4.1.36.tgz#7b718964f3ad9a08edf42001ea9df496dc0873cf"

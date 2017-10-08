@@ -25,7 +25,7 @@ gulp.task('nodemon', function () {
   });
 
   stream.on('crash', function() {
-      console.error('Application has crashed!\n')
-      stream.emit('restart', 10)
+    console.error('Application has crashed!\n')
+    stream.emit('restart', 10)
   })
 });

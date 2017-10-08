@@ -3,6 +3,7 @@ import config from '../config';
 import dictionary from '../locales/dictionary';
 import httpsPromised from '../utils/httpsPromised';
 import log from '../utils/log';
+import { path } from 'ramda';
 
 export interface ISchedule {
   stationName: string;
@@ -66,20 +67,35 @@ class GeoAPI {
     return `https://catalog.api.2gis.ru/2.0/transport/station/get?id=${stationId}&key=${this.token}`;
   }
 
-  private transformResponseToSchedule(data: any): Promise<ISchedule> {
-    const week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  private todayAs2gisNeeds = () => {
+    const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const todayInWeekAsArrayIndex = moment().day();
+    return week[todayInWeekAsArrayIndex];
+  }
 
-    const unReadySchedule = data.result.items[0].schedule;
-    const todayInWeekAsArrayIndex = moment().day() - 1;
-    const scheduleToday = unReadySchedule[week[todayInWeekAsArrayIndex]];
+  private transformResponseToSchedule = (data: any): Promise<ISchedule> => {
+    const today = this.todayAs2gisNeeds();
+    const pathToTime = [
+      'result',
+      'items',
+      '0',
+      'schedule',
+      today,
+      'working_hours',
+      '0',
+    ];
+
+    const workingHours = path(pathToTime)(data) as {from: string, to: string};
 
     const schedule: ISchedule = {
-      end: scheduleToday.working_hours[0].to,
-      start: scheduleToday.working_hours[0].from,
+      end: workingHours.to,
+      start: workingHours.from,
       stationName: data.result.items[0].name,
     };
 
-    return Promise.resolve(schedule);
+    return workingHours
+      ? Promise.resolve(schedule)
+      : Promise.reject(new Error(`Parsing error`));
   }
 }
 

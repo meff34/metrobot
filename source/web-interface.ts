@@ -3,6 +3,7 @@ import * as http from 'http';
 import * as path from 'path';
 import config, { Config } from './config';
 import log from './utils/log';
+import geoAPI from './geoAPI/geoAPI';
 
 class Server {
   private server: http.Server;
@@ -17,7 +18,7 @@ class Server {
 
   public run() {
     this.server.listen(this.port, this.hostname, () => {
-      log.stdOut(`Server running at http://${this.hostname}:${this.port}/`);
+      log.stdOut(`Server listening at http://${this.hostname}:${this.port}/`);
     });
   }
 

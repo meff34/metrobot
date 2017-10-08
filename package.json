@@ -12,10 +12,12 @@
   "author": "Ivan Gorbunov, meff34@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "@types/ramda": "^0.24.16",
     "bunyan": "^1.8.12",
     "chalk": "^2.0.1",
     "jsonfile": "^3.0.1",
     "moment": "^2.18.1",
+    "ramda": "^0.24.1",
     "telebot": "^1.2.0"
   },
   "devDependencies": {
