@@ -1,4 +1,4 @@
-import bot from './bot'
+import bot from './bot';
 import dictionary from '../locales/dictionary';
 
 export default function commands() {

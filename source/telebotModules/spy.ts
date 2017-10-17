@@ -2,8 +2,8 @@ import config from '../config';
 import bot from './bot';
 
 export function spy(msg: any) {
-  const { from } = msg;
-  const data = asSpier(`firstname: ${from.first_name}\nlastname: ${from.last_name}\nusername: @${from.username}\n\nmsg: ${msg.text}`);
+  const { first_name, last_name, username } = msg.from;
+  const data = asSpier(`firstname: ${first_name}\nlastname: ${last_name}\nusername: @${username}\n\nmsg: ${msg.text}`);
   sendToSpier(data);
 }
 

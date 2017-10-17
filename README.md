@@ -13,8 +13,11 @@ make file `config.json` in the root folder:
 
 ```json
 {
-  "doubleGisToken": "YOUR-2GIS-TOKEN",
-  "teleToken": "YOUR-TELEGRAM-TOKEN"
+  "doubleGisToken": 2gis api token as string,
+  "teleToken": telegram bot token as string,
+  "spyUserIds": array of developer ids as number[],
+  "hostname": development host as string,
+  "port": development port as number
 }
 ```
 then run
@@ -28,5 +31,5 @@ $ npm test
 ```
 
 ### Stack
-[Telebot](https://github.com/mullwar/telebot), [Mocha](http://mochajs.org/), [tslint](https://palantir.github.io/tslint/), [Moment](https://momentjs.com/).
+[Telebot](https://github.com/mullwar/telebot), [Mocha](http://mochajs.org/), [tslint](https://palantir.github.io/tslint/), [Moment](https://momentjs.com/), [bunyan](https://github.com/trentm/node-bunyan).
 
