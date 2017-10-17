@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node build/index.js",
     "develop": "gulp",
-    "test": "mocha -r ts-node/register test/*.test.ts"
+    "test": "mocha -r ts-node/register test/*.test.ts",
+    "lint": "./node_modules/.bin/tslint --force -t stylish -c tslint.json ./source/**/*.ts"
   },
   "keywords": [],
   "author": "Ivan Gorbunov, meff34@gmail.com",
@@ -29,10 +30,6 @@
     "@types/request-promise": "^4.1.36",
     "@types/telebot": "^1.2.0",
     "chai": "^4.1.0",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-mocha": "^4.11.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-sourcemaps": "^2.6.0",
@@ -40,6 +37,7 @@
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
     "ts-node": "^3.3.0",
+    "tslint": "^5.7.0",
     "tslint-config-airbnb": "^5.2.1",
     "typescript": "^2.4.2"
   }

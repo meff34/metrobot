@@ -1,7 +1,7 @@
 import * as bunyan from 'bunyan';
 import * as chalk from 'chalk';
 import * as moment from 'moment';
-import { spyLog } from '../telebotModules/spy'
+import { spyLog } from './spy';
 
 class Logger {
   private telegramLogger: bunyan;

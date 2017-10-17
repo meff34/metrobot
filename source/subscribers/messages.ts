@@ -1,11 +1,11 @@
-import bot from './bot';
+import bot from '../telebotModules/bot';
 import geoAPI from '../geoAPI/geoAPI';
 import dictionary from '../locales/dictionary';
 import log from '../utils/log';
 import responseFormatter from '../utils/responseFormatter';
-import { spy } from './spy';
+import { spy } from '../utils/spy';
 
-export default function answerToMessage() {
+function subscribeMessages() {
   bot.on('text', msg => answer(msg));
   bot.on('edit', msg => answer(msg, { asReply: true }));
 }
@@ -27,3 +27,5 @@ function answer(message: any, opts = { asReply: false }) {
       message.reply.text(dictionary.errorMessage, opts);
     });
 }
+
+subscribeMessages();

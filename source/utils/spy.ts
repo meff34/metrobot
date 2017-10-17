@@ -1,5 +1,5 @@
 import config from '../config';
-import bot from './bot';
+import bot from '../telebotModules/bot';
 
 export function spy(msg: any) {
   const { first_name, last_name, username } = msg.from;

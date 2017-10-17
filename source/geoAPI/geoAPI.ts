@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import config from '../config';
-import dictionary from '../locales/dictionary';
+import { augmentedQueryString } from '../locales/dictionary';
 import httpsPromised from '../utils/httpsPromised';
 import log from '../utils/log';
 import { path } from 'ramda';
@@ -27,36 +27,46 @@ class GeoAPI {
 
   public getStationSchedule(stationId: number): Promise<any> {
     const queryUrl = geoAPI.getDoubleGisGetScheduleUrl(stationId);
-    return httpsPromised.get(queryUrl)
+
+    return httpsPromised
+      .get(queryUrl)
       .then(this.handleAPIError);
   }
 
   public getStationId(queryString: string): Promise<number> {
-    const augmentedQueryString = dictionary.augmentedQueryString(queryString);
-    const queryUrl = geoAPI.getDoubleGisSearchUrl(augmentedQueryString);
+    const augmentedQuery = augmentedQueryString(queryString);
+    const queryUrl = geoAPI.getDoubleGisSearchUrl(augmentedQuery);
 
-    return httpsPromised.get(queryUrl)
+    return httpsPromised
+      .get(queryUrl)
       .then(this.handleAPIError)
-      .then(data => Promise.resolve(this.findStationId(data)));
+      .then(this.findStationId);
   }
 
-  private findStationId(data: any): number {
+  private findStationId(data: any): Promise<number> {
     const item = data.result.items.find((elem: any) => elem.hint.hint_type === 'station.metro');
-    return parseInt(item.id, 10);
+    return Promise.resolve(parseInt(item.id, 10));
   }
 
   private handleAPIError(data: any) {
-    if (data.meta.code !== 200) {
-      return Promise.reject(new Error(`${data.meta.code} API error: ${data.meta.error.message}`));
-    }
-    return Promise.resolve(data);
+    return data.meta.code === 200
+      ? Promise.resolve(data)
+      : Promise.reject(new Error(`${data.meta.code} API error: ${data.meta.error.message}`));
   }
 
   private handleWrongStationSubtype(data: any) {
-    if (data.result.items[0].subtype !== 'metro') {
-      return Promise.reject(new Error(`Search error: searching 'metro', but get '${data.result.items[0].subtype}'`));
-    }
-    return Promise.resolve(data);
+    const pathToSubtype = [
+      'result',
+      'items',
+      '0',
+      'subtype',
+    ];
+
+    const subtype = path(pathToSubtype)(data);
+
+    return subtype === 'metro'
+      ? Promise.resolve(data)
+      : Promise.reject(new Error(`Search error: searching 'metro', but get '${subtype}'`));
   }
 
   private getDoubleGisSearchUrl(query: string): string {
