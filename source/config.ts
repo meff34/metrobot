@@ -8,6 +8,7 @@ export interface Config {
   hostname: string;
   port: number;
   spyUserIds: number[];
+  googleToken: string;
 }
 
 class ConfigLoader {

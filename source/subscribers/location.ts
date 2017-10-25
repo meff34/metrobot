@@ -1,13 +1,27 @@
 import bot from '../bot';
 import dictionary from '../locales/dictionary';
+import { getByLocation } from '../geoAPI/googleLocationAPI';
+import geoAPI from '../geoAPI/geoAPI';
+import { formatForLocationRequest } from '../utils/responseFormatter';
+import log from '../utils/log';
+import { spy } from '../utils/spy';
 
 function subscribeLocation() {
   bot.on('location', subscriber);
 }
 
-const subscriber = (msg: any) => {
-  const { latitude, longitude } = msg.location;
-  msg.reply.text('Я пока так не умею :С\nНо скоро научусь!');
+const subscriber = (message: any) => {
+  getByLocation(message.location)
+    .then(name => geoAPI.getStationscheduleByName(name))
+    .then((schedule) => {
+      const response = formatForLocationRequest(schedule);
+      message.reply.text(response);
+      spy({ text: 'location request', ...message });
+    })
+    .catch((error) => {
+      log.botError(message, error);
+      message.reply.text('Куда это тебя занесло?');
+    });
 };
 
 subscribeLocation();

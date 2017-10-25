@@ -2,7 +2,7 @@ import bot from '../bot';
 import geoAPI from '../geoAPI/geoAPI';
 import dictionary from '../locales/dictionary';
 import log from '../utils/log';
-import responseFormatter from '../utils/responseFormatter';
+import { responseFormatter } from '../utils/responseFormatter';
 import { spy } from '../utils/spy';
 
 function subscribeMessages() {
