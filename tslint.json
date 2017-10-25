@@ -9,7 +9,8 @@
         "import-name": [ false ],
         "max-line-length": [ false ],
         "ordered-imports": false,
-        "interface-name": false
+        "interface-name": false,
+        "object-literal-sort-keys": false
     },
     "rulesDirectory": []
 }

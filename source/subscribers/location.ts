@@ -12,7 +12,10 @@ function subscribeLocation() {
 
 const subscriber = (message: any) => {
   getByLocation(message.location)
-    .then(name => geoAPI.getStationscheduleByName(name))
+    .then(({ name, location: { latitude, longitude } }) => {
+      message.reply.location([latitude, longitude]);
+      return geoAPI.getStationscheduleByName(name);
+    })
     .then((schedule) => {
       const response = formatForLocationRequest(schedule);
       message.reply.text(response);
