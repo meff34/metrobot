@@ -1,4 +1,4 @@
-import bot from './telebotModules/bot';
+import bot from './bot';
 import server from './web-interface';
 
 import './subscribers/messages';

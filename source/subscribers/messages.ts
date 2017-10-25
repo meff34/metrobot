@@ -1,4 +1,4 @@
-import bot from '../telebotModules/bot';
+import bot from '../bot';
 import geoAPI from '../geoAPI/geoAPI';
 import dictionary from '../locales/dictionary';
 import log from '../utils/log';

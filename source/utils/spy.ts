@@ -1,16 +1,19 @@
 import config from '../config';
-import bot from '../telebotModules/bot';
+import bot from '../bot';
 
-export function spy(msg: any) {
+export const spy (msg: any) => {
   const { first_name, last_name, username } = msg.from;
   const data = asSpier(`firstname: ${first_name}\nlastname: ${last_name}\nusername: @${username}\n\nmsg: ${msg.text}`);
   sendToSpier(data);
-}
+};
 
-export function spyLog(msg: any) {
+export const spyLog = (msg: any) => {
   const data = asLogger(msg);
   sendToSpier(data);
-}
+};
+
+export const startup = () => sendToSpier('#wakeup');
+export const shutdown = () => sendToSpier('#shutdown');
 
 const asSpier =
   (msg: string) =>

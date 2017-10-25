@@ -1,4 +1,4 @@
-import bot from '../telebotModules/bot';
+import bot from '../bot';
 import dictionary from '../locales/dictionary';
 
 function subscribeCommands() {

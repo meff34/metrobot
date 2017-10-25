@@ -11,7 +11,7 @@ export interface ISchedule {
   end: string;
 }
 
-class GeoAPI {
+export class GeoAPI {
   private token: string;
 
   constructor(geoToken: string) {

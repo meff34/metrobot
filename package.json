@@ -7,12 +7,14 @@
     "start": "node build/index.js",
     "develop": "gulp",
     "test": "mocha -r ts-node/register test/*.test.ts",
+    "test:watch": "mocha -w -r ts-node/register test/*.test.ts",
     "lint": "./node_modules/.bin/tslint --force -t stylish -c tslint.json ./source/**/*.ts"
   },
   "keywords": [],
   "author": "Ivan Gorbunov, meff34@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "@types/jsonfile": "^4.0.0",
     "@types/ramda": "^0.24.16",
     "bunyan": "^1.8.12",
     "chalk": "^2.0.1",
