@@ -20,6 +20,7 @@
     "chalk": "^2.0.1",
     "jsonfile": "^3.0.1",
     "moment": "^2.18.1",
+    "node-fetch": "^1.7.3",
     "ramda": "^0.24.1",
     "telebot": "^1.2.0"
   },
@@ -29,6 +30,7 @@
     "@types/chalk": "^0.4.31",
     "@types/mocha": "^2.2.41",
     "@types/node": "^8.0.19",
+    "@types/node-fetch": "^1.6.7",
     "@types/request-promise": "^4.1.36",
     "@types/telebot": "^1.2.0",
     "chai": "^4.1.0",

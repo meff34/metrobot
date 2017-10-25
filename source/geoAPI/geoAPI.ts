@@ -1,9 +1,9 @@
 import * as moment from 'moment';
+import fetch from 'node-fetch';
+import { path } from 'ramda';
 import config from '../config';
 import { augmentedQueryString } from '../locales/dictionary';
-import { get } from '../utils/httpsPromised';
 import log from '../utils/log';
-import { path } from 'ramda';
 
 export interface ISchedule {
   stationName: string;
@@ -28,7 +28,8 @@ export class GeoAPI {
   public getStationSchedule(stationId: number): Promise<any> {
     const queryUrl = geoAPI.getDoubleGisGetScheduleUrl(stationId);
 
-    return get(queryUrl)
+    return fetch(queryUrl)
+      .then(res => res.json())
       .then(this.handleAPIError);
   }
 
@@ -36,7 +37,8 @@ export class GeoAPI {
     const augmentedQuery = augmentedQueryString(queryString);
     const queryUrl = geoAPI.getDoubleGisSearchUrl(augmentedQuery);
 
-    return get(queryUrl)
+    return fetch(queryUrl)
+      .then(res => res.json())
       .then(this.handleAPIError)
       .then(this.findStationId);
   }
