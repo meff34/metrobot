@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 import config from '../config';
 import { augmentedQueryString } from '../locales/dictionary';
-import httpsPromised from '../utils/httpsPromised';
+import { get } from '../utils/httpsPromised';
 import log from '../utils/log';
 import { path } from 'ramda';
 
@@ -28,8 +28,7 @@ export class GeoAPI {
   public getStationSchedule(stationId: number): Promise<any> {
     const queryUrl = geoAPI.getDoubleGisGetScheduleUrl(stationId);
 
-    return httpsPromised
-      .get(queryUrl)
+    return get(queryUrl)
       .then(this.handleAPIError);
   }
 
@@ -37,8 +36,7 @@ export class GeoAPI {
     const augmentedQuery = augmentedQueryString(queryString);
     const queryUrl = geoAPI.getDoubleGisSearchUrl(augmentedQuery);
 
-    return httpsPromised
-      .get(queryUrl)
+    return get(queryUrl)
       .then(this.handleAPIError)
       .then(this.findStationId);
   }
