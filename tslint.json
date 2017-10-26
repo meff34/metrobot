@@ -1,4 +1,4 @@
-{"semicolon": [ true, "never" ],
+{
     "defaultSeverity": "error",
     "extends": [
         "tslint:recommended",
