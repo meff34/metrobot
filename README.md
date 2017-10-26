@@ -13,11 +13,12 @@ make file `config.json` in the root folder:
 
 ```json
 {
-  "doubleGisToken": "2gis api token as string",
-  "teleToken": "telegram bot token as string",
-  "spyUserIds": "array of developer ids as number[]",
-  "hostname": "development host as string",
-  "port": "development port as number"
+  "doubleGisToken": "2gis api token", // string
+  "teleToken": "telegram bot token", // string
+  "spyUserIds": "array of developer ids", // number[]
+  "hostname": "development host", // string
+  "port": "development port", // number
+  "googleToken": "google maps API token" // string
 }
 ```
 then run
@@ -27,7 +28,7 @@ $ npm run develop
 
 ### Tests
 ```bash
-$ npm test
+$ npm t
 ```
 
 ### Stack
