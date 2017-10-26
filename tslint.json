@@ -1,4 +1,4 @@
-{
+{"semicolon": [ true, "never" ],
     "defaultSeverity": "error",
     "extends": [
         "tslint:recommended",
@@ -6,6 +6,8 @@
     ],
     "jsRules": {},
     "rules": {
+        "no-consecutive-blank-lines": [true, 2],
+        "semicolon": [true, "never"],
         "import-name": [ false ],
         "max-line-length": [ false ],
         "ordered-imports": false,

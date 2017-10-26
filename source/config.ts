@@ -1,28 +1,28 @@
-import * as path from 'path';
-import log from './utils/log';
-import { readFileSync } from 'jsonfile';
+import * as path from 'path'
+import log from './utils/log'
+import { readFileSync } from 'jsonfile'
 
 export interface Config {
-  doubleGisToken: string;
-  teleToken: string;
-  hostname: string;
-  port: number;
-  spyUserIds: number[];
-  googleToken: string;
+  doubleGisToken: string
+  teleToken: string
+  hostname: string
+  port: number
+  spyUserIds: number[]
+  googleToken: string
 }
 
 class ConfigLoader {
-  public config: Config;
+  public config: Config
 
   constructor(pathToFile: string) {
     try {
-      this.config = readFileSync(pathToFile);
+      this.config = readFileSync(pathToFile)
     } catch (err) {
-      log.runtimeError(new Error(err));
+      log.runtimeError(new Error(err))
     }
   }
 }
 
-const { config } = new ConfigLoader(path.join(__dirname, '../config.json'));
+const { config } = new ConfigLoader(path.join(__dirname, '../config.json'))
 
-export default config;
+export default config
