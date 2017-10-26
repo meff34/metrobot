@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/index.js",
-    "develop": "gulp",
-    "test": "mocha -r ts-node/register test/*.test.ts",
-    "test:watch": "mocha -w -r ts-node/register test/*.test.ts",
+    "develop": "./node_modules/.bin/gulp",
+    "test": "./node_modules/.bin/mocha -r ts-node/register test/*.test.ts",
+    "test:watch": "./node_modules/.bin/mocha -w -r ts-node/register test/*.test.ts",
     "lint": "./node_modules/.bin/tslint --force -t stylish -c tslint.json ./source/**/*.ts"
   },
   "keywords": [],
