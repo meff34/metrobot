@@ -7,8 +7,8 @@ interface Location {
   longitude: string
 }
 
-export interface Answer {
-  name: string
+export interface LocationAnswer {
+  stationName: string
   location: Location
 }
 
@@ -20,11 +20,11 @@ const handleResponse =
   (response: any) =>
     response.status === 'OK'
       ? Promise.resolve(getAnswerData(response))
-      : Promise.reject(new Error(`Google API: ${response.satus}`))
+      : Promise.reject(new Error(`Google API: ${response.status}`))
 
 const getAnswerData =
-  (response: any): Answer => ({
-    name: response.results[0].name,
+  (response: any): LocationAnswer => ({
+    stationName: response.results[0].name,
     location: {
       latitude: response.results[0].geometry.location.lat,
       longitude: response.results[0].geometry.location.lng,
@@ -32,7 +32,7 @@ const getAnswerData =
   })
 
 export const getByLocation =
-  (location: Location): Promise<Answer> =>
+  (location: Location): Promise<LocationAnswer> =>
     fetch(getUrl(location))
       .then(res => res.json())
       .then(handleResponse)

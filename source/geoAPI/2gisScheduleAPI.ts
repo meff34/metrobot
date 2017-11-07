@@ -3,7 +3,6 @@ import fetch from 'node-fetch'
 import { path } from 'ramda'
 import config from '../config'
 import { augmentedQueryString } from '../locales/dictionary'
-import log from '../utils/log'
 
 export interface ISchedule {
   stationName: string

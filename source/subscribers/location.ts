@@ -3,28 +3,30 @@ import dictionary from '../locales/dictionary'
 import { getByLocation } from '../geoAPI/googleLocationAPI'
 import { getStationscheduleByName } from '../geoAPI/2gisScheduleAPI'
 import { formatForLocationRequest } from '../utils/responseFormatter'
-import log from '../utils/log'
+import { botError } from '../utils/log'
 import { spy } from '../utils/spy'
 
 function subscribeLocation() {
   bot.on('location', subscriber)
 }
 
-const subscriber = (message: any) => {
-  getByLocation(message.location)
-    .then(({ name, location: { latitude, longitude } }) => {
-      message.reply.location([latitude, longitude])
-      return getStationscheduleByName(name)
-    })
-    .then((schedule) => {
+const subscriber =
+  async ({ location, reply, from, text }: any) => {
+    try {
+      const { stationName, location: { latitude, longitude } } = await getByLocation(location)
+
+      reply.location([latitude, longitude])
+
+      const schedule = await getStationscheduleByName(stationName)
       const response = formatForLocationRequest(schedule)
-      message.reply.text(response)
-      spy({ text: 'location request', ...message })
-    })
-    .catch((error) => {
-      log.botError(message, error)
-      message.reply.text('Куда это тебя занесло?')
-    })
-}
+
+      reply.text(response)
+
+      spy({ text: 'location request', ...from })
+    } catch (error) {
+      botError({ text, ...from }, error)
+      reply.text('Куда это тебя занесло?')
+    }
+  }
 
 subscribeLocation()

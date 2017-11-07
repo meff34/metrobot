@@ -1,5 +1,5 @@
 import * as path from 'path'
-import log from './utils/log'
+import { runtimeError } from './utils/log'
 import { readFileSync } from 'jsonfile'
 
 export interface Config {
@@ -18,7 +18,7 @@ class ConfigLoader {
     try {
       this.config = readFileSync(pathToFile)
     } catch (err) {
-      log.runtimeError(new Error(err))
+      runtimeError(new Error(err))
     }
   }
 }

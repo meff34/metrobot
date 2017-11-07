@@ -12,7 +12,9 @@
         "max-line-length": [ false ],
         "ordered-imports": false,
         "interface-name": false,
-        "object-literal-sort-keys": false
+        "object-literal-sort-keys": false,
+        "curly": [true, "ignore-same-line"],
+        "trailing-comma": [true, {"multiline": {"anyOf": "always", "functions": "never"}, "singleline": "never"}]
     },
     "rulesDirectory": []
 }
