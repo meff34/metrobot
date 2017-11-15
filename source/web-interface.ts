@@ -10,23 +10,24 @@ const handleRequest = (request: http.ServerRequest, response: http.ServerRespons
   response.statusCode = 200
   response.setHeader('Content-Type', 'application/json; charset=utf-8')
 
-  readLog(
-    path.resolve(__dirname, '../log/errors.log'),
-    errors => response.end(JSON.stringify(errors), 'utf-8')
-  )
+  const errorsDestination = path.resolve(__dirname, '../log/errors.log')
+
+  readLog(errorsDestination)
+    .then(errors => response.end(JSON.stringify(errors)))
 }
 
-const readLog = (fileName: string, cb: (data: any[]) => void) => {
-  fs.readFile(fileName, 'utf-8', (err, data) => {
-    if (err) {
-      runtimeError(err)
-      return
-    }
+const readLog = (fileName: string): Promise<any[]> =>
+  new Promise((resolve) => {
+    fs.readFile(fileName, 'utf-8', (err, data) => {
+      if (err) {
+        runtimeError(err)
+        return
+      }
 
-    const errors = toJSON(data)
-    cb(errors)
+      const errors = toJSON(data)
+      resolve(errors)
+    })
   })
-}
 
 const toJSON =
   (data: string) =>
@@ -35,6 +36,8 @@ const toJSON =
 
 const server = http.createServer(handleRequest)
 
-export const initiateServer = () => server.listen(port, hostname, () => {
-  stdOut(`Server listening at http://${hostname}:${port}/`)
-})
+export const initiateServer =
+  () =>
+    server.listen(port, hostname, () => {
+      stdOut(`Server listening at http://${hostname}:${port}/`)
+    })
